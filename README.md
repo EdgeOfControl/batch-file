@@ -11,8 +11,14 @@ This script will allow you to mass move, copy, or delete files from a PowerShell
      
      - Enter your destination folder (copy and move only)
      
-     - Input a filter inclusionary command
+     - Input the first filter
      
-     - Input a filter exclusionary command (this can be $null if not needed)
+     - Input the second filter
      
-     - Profit
+     - Declare if the search is recursive or not
+     
+     - Choose the operators to be used in the command (supported: -and, -or, -like, -notlike
+     
+     - Wait for the command to complete
+     
+     - Repeat the script or use Ctrl+C to close out of it.
