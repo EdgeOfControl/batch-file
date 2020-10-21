@@ -374,6 +374,8 @@ function start-script {
 		copy {copy-redirect}
 		move {move-redirect}
 		delete {delete-redirect}
+		xerox {Write-Host "Did you mean copy?"; copy-redirect}
+		default {Write-Host "This command is not recognized. Please enter 'copy,' 'move,' or 'delete.'"; start-script}
 	}
 }
 
@@ -393,6 +395,8 @@ function function-repeat {
 		copy {copy-redirect}
 		move {move-redirect}
 		delete {delete-redirect}
+		xerox {Write-Host "Did you mean copy?"; copy-redirect}
+		default {Write-Host "This command is not recognized. Please enter 'copy,' 'move,' or 'delete.'"; function-repeat}
 	}
 }
 start-script
