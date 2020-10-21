@@ -13,6 +13,6 @@ This script will allow you to mass move, copy, or delete files from a PowerShell
      
      - Input a filter inclusionary command
      
-     - Input a filter exclusionary command** (this can be $null if not needed)
+     - Input a filter exclusionary command (this can be $null if not needed)
      
-     - **Profit
+     - Profit
