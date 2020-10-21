@@ -5,6 +5,7 @@ $global:filefolder = $null
 $global:destinationfolder = $null
 $global:exclusionarystring = $null
 $global:userstring = $null
+$global:directorycheck = $null
 
 function copy-script {
 	$recurse = Read-Host "Is this command recursive?"
@@ -22,7 +23,14 @@ function root-copy {
 	$global:destinationfolder = Read-Host "Please enter the path of the folder you would like the files to be copied into. If you are currently in the folder, please type './'"
 	$global:userstring = Read-Host "Please enter the string that the files you want to copy have in common. This **can** be a file extension. To use a file extension in this field, please type *.[file extension]"
 	$global:exclusionarystring = Read-Host "If there are files that fit the copy criteria that you do not want copied, please enter the string you would like the script to avoid."
-	
+	$global:directorycheck = test-path $global:destinationfolder
+	if($false -eq $global:directorycheck) {
+		Write-Warning "This directory does not exist. Waiting for user input to create directory."
+		pause
+		mkdir $global:destinationfolder | Out-Null
+		Write-Warning "The script has created the directory specified by the user and will now continue on user input."
+		pause
+	}
 	Get-ChildItem -path $global:filefolder | where {($_ -like "*$global:userstring*" -and $_ -notlike "*$global:exclusionarystring*")} | Copy-Item -Destination $destinationfolder
 	start-script
 }
@@ -33,7 +41,15 @@ function recursive-copy {
 	$global:destinationfolder = Read-Host "Please enter the path of the folder you would like the files to be copied into. If you are currently in the folder, please type './'"
 	$global:userstring = Read-Host "Please enter the string that the files you want to copy have in common. This **can** be a file extension. To use a file extension in this field, please type *.[file extension]"
 	$global:exclusionarystring = Read-Host "If there are files that fit the copy criteria that you do not want copied, please enter the string you would like the script to avoid."
-	
+	$global:directorycheck = test-path $global:destinationfolder
+	# checks if the inputted copy/move to destination folder exists. If it doesn't, the user is informed and the script creates the folder before proceeding.
+	if($false -eq $global:directorycheck) { 
+		Write-Warning "This directory does not exist. Waiting for user input to create directory."
+		pause
+		mkdir $global:destinationfolder | Out-Null
+		Write-Warning "The script has created the directory specified by the user and will now continue on user input."
+		pause
+	}
 	Get-ChildItem -Recurse -path $global:filefolder | where {($_ -like "*$global:userstring*" -and $_ -notlike "*$global:exclusionarystring*")} | Copy-Item -Destination $destinationfolder
 	start-script
 }
@@ -54,7 +70,14 @@ function root-move {
 	$global:destinationfolder = Read-Host "Please enter the path of the folder you would like the files to be moved into. If you are currently in the folder, please type './'"
 	$global:userstring = Read-Host "Please enter the string that the files you want to move have in common. This **can** be a file extension. To use a file extension in this field, please type *.[file extension]"
 	$global:exclusionarystring = Read-Host "If there are files that fit the copy criteria that you do not want moved, please enter the string you would like the script to avoid."
-	
+	$global:directorycheck = test-path $global:destinationfolder
+	if($false -eq $global:directorycheck) {
+		Write-Warning "This directory does not exist. Waiting for user input to create directory."
+		pause
+		mkdir $global:destinationfolder | Out-Null
+		Write-Warning "The script has created the directory specified by the user and will now continue on user input."
+		pause
+	}
 	Get-ChildItem -path $global:filefolder | where {($_ -like "*$global:userstring*" -and $_ -notlike "*$global:exclusionarystring*")} | Move-Item -Destination $destinationfolder
 	start-script
 }
@@ -65,7 +88,14 @@ function recursive-move {
 	$global:destinationfolder = Read-Host "Please enter the path of the folder you would like the files to be moved into. If you are currently in the folder, please type './'"
 	$global:userstring = Read-Host "Please enter the string that the files you want to move have in common. This **can** be a file extension. To use a file extension in this field, please type *.[file extension]"
 	$global:exclusionarystring = Read-Host "If there are files that fit the copy criteria that you do not want moved, please enter the string you would like the script to avoid."
-	
+	$global:directorycheck = test-path $global:destinationfolder
+	if($false -eq $global:directorycheck) {
+		Write-Warning "This directory does not exist. Waiting for user input to create directory."
+		pause
+		mkdir $global:destinationfolder | Out-Null
+		Write-Warning "The script has created the directory specified by the user and will now continue on user input."
+		pause
+	}
 	Get-ChildItem -Recurse -path "$global:filefolder" | where {($_ -like "*$global:userstring*" -and $_ -notlike "*$global:exclusionarystring*")} | Move-Item -Destination $destinationfolder
 	start-script
 }
@@ -84,8 +114,8 @@ function delete-script {
 function root-delete {
 	$global:filefolder = Read-Host "Please enter the path of the folder you would like to delete files from. If you are currently in the folder, please type './'."
 	$global:userstring = Read-Host "Please enter the string that the files you want to delete have in common. This **can** be a file extension. To use a file extension in this field, please type *.[file extension]"
-	$global:exclusionarystring = Read-Host "If there are files that fit the delete criteria that you do not want deleted, please enter the string you would like the script to avoid. Emter a space if there are no file name conflicts."
-	
+	$global:exclusionarystring = Read-Host "If there are files that fit the delete criteria that you do not want deleted, please enter the string you would like the script to avoid."
+	$global:directorycheck = test-path $global:destinationfolder
 	Get-ChildItem -path $global:filefolder | where {($_ -like "*$global:userstring*" -and $_ -notlike "*$global:exclusionarystring*")} | rm
 	start-script
 }
@@ -94,7 +124,8 @@ function root-delete {
 function recursive-delete {
 	$global:filefolder = Read-Host "Please enter the path of the folder you would like to delete files from. If you are currently in the folder, please type './'."
 	$global:userstring = Read-Host "Please enter the string that the files you want to delete have in common. This **can** be a file extension. To use a file extension in this field, please type *.[file extension]"
-	$global:exclusionarystring = Read-Host "If there are files that fit the delete criteria that you do not want deleted, please enter the string you would like the script to avoid. Enter a space if there are no file name conflicts."
+	$global:exclusionarystring = Read-Host "If there are files that fit the delete criteria that you do not want deleted, please enter the string you would like the script to avoid."
+	$global:directorycheck = test-path $global:destinationfolder
 	Get-ChildItem -Recurse -path $global:filefolder | where {($_ -like "*$global:userstring*" -and $_ -notlike "*$global:exclusionarystring*")} | rm
 	start-script
 }
