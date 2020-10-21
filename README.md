@@ -1,5 +1,5 @@
 # batch-file
-Mass file copier, mover, and deleter powered by PowerShell
+Mass file copier, mover, and remover powered by PowerShell
 
 This script will allow you to mass move, copy, or delete files from a PowerShell window. Recursive searching is toggled during runtime.
 
