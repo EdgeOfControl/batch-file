@@ -10,9 +10,9 @@ $global:recursivecheck = $null
 
 # refers back to declared variables to create a copy command
 function copy-redirect {
-	$global:filefolder = Read-Host "Please enter the path of the folder you would like to move files from. If you are currently in the folder, please type './'."
-	$global:destinationfolder = Read-Host "Please enter the path of the folder you would like the files to be moved into. If you are currently in the folder, please type './'"
-	$global:userstring = Read-Host "Please enter the string that the files you want to move have in common. This **can** be a file extension. To use a file extension in this field, please type *.[file extension]"
+	$global:filefolder = Read-Host "Please enter the path of the folder you would like to copy files from. If you are currently in the folder, please type './'."
+	$global:destinationfolder = Read-Host "Please enter the path of the folder you would like the files to be copied into. If you are currently in the folder, please type './'"
+	$global:userstring = Read-Host "Please enter the string that the files you want to copy have in common. This **can** be a file extension. To use a file extension in this field, please type *.[file extension]"
 	$global:userstring2 = Read-Host "Please enter a second additional filter. Enter 'skipfilter' to have the script ignore this filter."
 	if($global:userstring2 -eq "skipfilter") { # checks if the user entered the skip command
 		$global:userstring2 = $null # resets the variable to null for the if statement that sets the filtercheck variable to function properly
@@ -243,8 +243,7 @@ function move-redirect {
 
 # refers back to declared variables to create a delete command
 function delete-redirect {
-	$global:filefolder = Read-Host "Please enter the path of the folder you would like to move files from. If you are currently in the folder, please type './'."
-	$global:destinationfolder = Read-Host "Please enter the path of the folder you would like the files to be moved into. If you are currently in the folder, please type './'"
+	$global:filefolder = Read-Host "Please enter the path of the folder you would like to delete files from. If you are currently in the folder, please type './'."
 	$global:userstring = Read-Host "Please enter the string that the files you want to move have in common. This **can** be a file extension. To use a file extension in this field, please type *.[file extension]"
 	$global:userstring2 = Read-Host "Please enter a second additional filter. Enter 'skipfilter' to have the script ignore this filter."
 	if($global:userstring2 -eq "skipfilter") { # checks if the user entered the skip command
